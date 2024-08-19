@@ -14,12 +14,12 @@ const ListHeader = ({ listName, getData }) => {
 
   return (
     <div className="list-header">
-      <h1>{listName}</h1>
-      <div className="button-container">
-        <button className="create" onClick={() => setShowModal(true)}>
+      {/* <h1>{listName}</h1> */}
+      <div className="w-full flex justify-end gap-4">
+        <button className="" onClick={() => setShowModal(true)}>
           Add
         </button>
-        <button className="signout" onClick={signOut}>
+        <button className="" onClick={signOut}>
           Sign out
         </button>
       </div>

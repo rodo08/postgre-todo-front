@@ -31,17 +31,25 @@ const App = () => {
   );
 
   return (
-    <div className="app">
-      {!authToken && <Auth />}
-      {authToken && (
-        <>
-          <ListHeader listName={"Holiday tick list"} getData={getData} />
-          <p className="user-email">Welcome {userEmail}</p>
-          {sortedTasks?.map((task) => (
-            <ListItem key={task.id} task={task} getData={getData} />
-          ))}
-        </>
-      )}
+    <div className="w-full max-w-1080 mx-auto flex justify-center">
+      <div className="w-full">
+        {!authToken && <Auth />}
+        {authToken && (
+          <>
+            <div className="pt-4">
+              <div className="flex items-center justify-end gap-4 pb-10">
+                <p>Welcome {userEmail}</p>
+                <ListHeader listName={"TaskList"} getData={getData} />
+              </div>
+              <ul className="w-full grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 ">
+                {sortedTasks?.map((task) => (
+                  <ListItem key={task.id} task={task} getData={getData} />
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
