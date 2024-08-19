@@ -7,14 +7,16 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
 
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
-    title: editMode ? task.title : null,
+    title: editMode ? task.title : "",
     progress: editMode ? task.progress : 50,
+    description: editMode ? task.description : "",
     date: editMode ? task.date : new Date(),
   });
 
   const postData = async (e) => {
     e.preventDefault();
     try {
+      console.log(data);
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/todos`, {
         method: "POST",
         headers: {
@@ -57,22 +59,24 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
   };
 
   const handleChange = (e) => {
-    console.log("changed", e);
     const { name, value } = e.target;
-
     setData({ ...data, [name]: value });
-
-    console.log(data);
   };
 
   return (
-    <div className="overlay">
-      <div className="modal">
-        <div className="form-title-container">
-          <h3>{mode} your task</h3>
-          <button onClick={() => setShowModal(false)}>X</button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white w-full max-w-md p-4 shadow-lg rounded-lg relative">
+        <div className="flex items-center justify-between relative pb-6">
+          <h2>{mode} your task</h2>
+          <button
+            className="absolute top-2 right-2"
+            onClick={() => setShowModal(false)}
+          >
+            Close
+          </button>
         </div>
-        <form>
+
+        <form className="flex flex-col gap-4">
           <input
             required
             maxLength={30}
@@ -81,9 +85,22 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             value={data.title}
             onChange={handleChange}
             type="text"
+            className=" p-2"
           />
-          <br />
-          <label htmlFor="range"></label>
+
+          <textarea
+            className="pt-2"
+            required
+            placeholder="Description"
+            name="description"
+            value={data.description}
+            onChange={handleChange}
+            cols="5"
+          ></textarea>
+
+          <label htmlFor="range" className="text-lg pt-4">
+            Progress
+          </label>
           <input
             required
             type="range"
@@ -93,15 +110,19 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             name="progress"
             value={data.progress}
             onChange={handleChange}
+            className="w-full"
           />
-          <input
-            className={mode}
+          <button
             type="submit"
             onClick={editMode ? editData : postData}
-          />
+            className="self-end"
+          >
+            {editMode ? "Edit" : "Add"} Task
+          </button>
         </form>
       </div>
     </div>
   );
 };
+
 export default Modal;

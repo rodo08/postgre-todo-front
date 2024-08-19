@@ -45,10 +45,31 @@ const Auth = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="flex flex-col items-center pt-10">
+      <div className="flex gap-10 pb-10">
+        <button
+          onClick={() => viewLogin(false)}
+          style={{
+            backgroundColor: isLogIn ? "rgb(255, 255, 255)" : "#d1b8ff",
+          }}
+        >
+          Sign Up
+        </button>
+        <button
+          onClick={() => viewLogin(true)}
+          style={{
+            backgroundColor: !isLogIn ? "rgb(255, 255, 255)" : "#d1b8ff",
+          }}
+        >
+          Sign In
+        </button>
+      </div>
       <div className="auth-container-box">
-        <form onSubmit={(e) => handleSubmit(e, isLogIn ? "login" : "signup")}>
-          <h2>{isLogIn ? "pls Login" : "pls Sign Up"}</h2>
+        <form
+          className="flex flex-col gap-4 pb-20"
+          onSubmit={(e) => handleSubmit(e, isLogIn ? "login" : "signup")}
+        >
+          <h1>{isLogIn ? "Sign In" : "Sign Up"}</h1>
           <input
             type="email"
             placeholder="Email"
@@ -69,31 +90,13 @@ const Auth = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           )}
-          <input type="submit" className="create" />
+          <div className="flex justify-end">
+            <button>Submit</button>
+          </div>
+
+          {/* <input type="submit" className="create" /> */}
           {error && <p>{error}</p>}
         </form>
-        <div className="auth-options">
-          <button
-            onClick={() => viewLogin(false)}
-            style={{
-              backgroundColor: isLogIn
-                ? "rgb(255, 255, 255)"
-                : "rgb(188, 188, 188)",
-            }}
-          >
-            Sign Up
-          </button>
-          <button
-            onClick={() => viewLogin(true)}
-            style={{
-              backgroundColor: !isLogIn
-                ? "rgb(255, 255, 255)"
-                : "rgb(188, 188, 188)",
-            }}
-          >
-            Login
-          </button>
-        </div>
       </div>
     </div>
   );
