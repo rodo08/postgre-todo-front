@@ -10,6 +10,7 @@
   --color-shadow-light: #ffffff;
   --color-shadow-dark: #e6e6e6;
   --color-hover-bg: #d1b8ff;
+  --color-error: #ba94ff;
   --color-text: black;
   --font-family: "Outfit", sans-serif;
 }
@@ -112,4 +113,9 @@ h2 {
 
 p {
   text-wrap: pretty; /* Si "text-wrap" no es válido, esto puede necesitar ajuste */
+}
+
+.error {
+  color: var(--color-error);
+  font-style: italic;
 }

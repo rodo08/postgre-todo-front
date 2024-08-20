@@ -95,7 +95,7 @@ const Auth = () => {
           </div>
 
           {/* <input type="submit" className="create" /> */}
-          {error && <p>{error}</p>}
+          {error && <p className="error">{error}</p>}
         </form>
       </div>
     </div>
