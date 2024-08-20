@@ -27,6 +27,7 @@
 
 /* Estilos generales del body */
 body {
+  padding: 1rem;
   font-family: var(--font-family);
   background-color: var(--color-bg); /* Añadido para consistencia */
 }
