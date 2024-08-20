@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 const Modal = ({ mode, setShowModal, task, getData }) => {
   const editMode = mode === "edit" ? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [error, setError] = useState(null);
 
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
@@ -15,6 +16,13 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
 
   const postData = async (e) => {
     e.preventDefault();
+
+    if (!data.title || !data.description) {
+      setError("Please fill in all fields");
+      setTimeout(() => setError(null), 5000);
+      return;
+    }
+
     try {
       console.log(data);
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/todos`, {
@@ -95,7 +103,6 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             name="description"
             value={data.description}
             onChange={handleChange}
-            cols="5"
           ></textarea>
 
           <label htmlFor="range" className="text-lg pt-4">
@@ -112,13 +119,16 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             onChange={handleChange}
             className="w-full"
           />
-          <button
-            type="submit"
-            onClick={editMode ? editData : postData}
-            className="self-end"
-          >
-            {editMode ? "Edit" : "Add"} Task
-          </button>
+          <div className="flex justify-end gap-8 items-center">
+            {error && <p className="error">{error}</p>}
+            <button
+              type="submit"
+              onClick={editMode ? editData : postData}
+              className="self-end"
+            >
+              {editMode ? "Edit" : "Add"} Task
+            </button>
+          </div>
         </form>
       </div>
     </div>

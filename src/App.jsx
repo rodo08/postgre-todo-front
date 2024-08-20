@@ -37,14 +37,20 @@ const App = () => {
         {authToken && (
           <>
             <div className="pt-4">
-              <div className="flex items-center justify-end gap-4 pb-10">
-                <p>Welcome {userEmail}</p>
+              <div className="flex items-center justify-between gap-4 pb-10">
+                <p>
+                  Welcome <strong>{userEmail}</strong>
+                </p>
                 <ListHeader listName={"TaskList"} getData={getData} />
               </div>
               <ul className="w-full grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 ">
-                {sortedTasks?.map((task) => (
-                  <ListItem key={task.id} task={task} getData={getData} />
-                ))}
+                {!tasks?.length ? (
+                  <h2 className="error">No tasks</h2>
+                ) : (
+                  sortedTasks?.map((task) => (
+                    <ListItem key={task.id} task={task} getData={getData} />
+                  ))
+                )}
               </ul>
             </div>
           </>
