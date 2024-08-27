@@ -120,7 +120,7 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             className="w-full"
           />
           <div className="flex justify-end gap-8 items-center">
-            {error && <p className="error">{error}</p>}
+            {error && <p className="highlight">{error}</p>}
             <button
               type="submit"
               onClick={editMode ? editData : postData}

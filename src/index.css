@@ -27,7 +27,6 @@
 
 /* Estilos generales del body */
 body {
-  padding: 1rem;
   font-family: var(--font-family);
   background-color: var(--color-bg); /* Añadido para consistencia */
 }
@@ -56,6 +55,11 @@ select {
     inset -6px -6px 9px var(--color-shadow-light);
 }
 
+textarea {
+  height: 100px;
+  padding-top: 0.5rem;
+}
+
 /* Estilos de botones */
 button {
   font-weight: bold;
@@ -81,8 +85,9 @@ ol {
 li {
   list-style: none;
   border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 23px 23px 46px #dedede, -23px -23px 46px #ffffff;
+  background: var(--color-bg);
+  box-shadow: -5px 5px 10px var(--color-shadow-dark),
+    5px -5px 10px var(--color-shadow-light);
 }
 
 /* Eliminar subrayado y color predeterminado en enlaces */
@@ -116,7 +121,7 @@ p {
   text-wrap: pretty; /* Si "text-wrap" no es válido, esto puede necesitar ajuste */
 }
 
-.error {
+.highlight {
   color: var(--color-error);
   font-style: italic;
 }
