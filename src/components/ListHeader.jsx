@@ -1,27 +1,37 @@
 import { useState } from "react";
-import Modal from "./Modal";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 const ListHeader = ({ listName, getData }) => {
+  const navigate = useNavigate();
+
   const [showModal, setShowModal] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(null);
-  const signOut = () => {
-    console.log("Sign out");
-    removeCookie("Email");
-    removeCookie("AuthToken");
-    window.location.reload();
+  const goBack = () => {
+    navigate("/menu");
   };
 
   return (
-    <div className="list-header">
-      {/* <h1>{listName}</h1> */}
-      <div className="w-full flex justify-end gap-4">
-        <button className="" onClick={() => setShowModal(true)}>
-          Add
-        </button>
-        <button className="" onClick={signOut}>
-          Sign out
-        </button>
+    <div className="container">
+      <div className=" flex flex-col gap-4">
+        <h2>Welcome to your task manager</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <p>
+            a place where your dreams take shape and goals become reality. Every
+            task you complete brings you one step closer to your aspirations.
+            Harness your focus, ignite your passion, and conquer your to-do list
+            with confidence.
+          </p>
+          <div className="flex gap-4">
+            <button className="" onClick={() => setShowModal(true)}>
+              Add task
+            </button>
+            <button className="" onClick={goBack}>
+              Go back
+            </button>
+          </div>
+        </div>
       </div>
       {showModal && (
         <Modal mode={"create"} setShowModal={setShowModal} getData={getData} />
