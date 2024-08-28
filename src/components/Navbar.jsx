@@ -1,19 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Eclectica } from "./Icons";
+import { useState } from "react";
 
 const Navbar = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [isLoading, setIsLoading] = useState(false);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
   const navigate = useNavigate();
 
   const signOut = () => {
-    console.log("Sign out");
-    removeCookie("Email");
-    removeCookie("AuthToken");
-    navigate("");
-    //window.location.reload();
+    setIsLoading(true);
+    try {
+      console.log("Sign out");
+      removeCookie("Email");
+      removeCookie("AuthToken");
+      navigate("");
+      window.location.reload();
+    } catch {
+      console.log("Failed to sign out");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,7 +39,9 @@ const Navbar = () => {
           <p>
             Welcome <b>{userEmail}</b>
           </p>
-          <button onClick={signOut}>Sign out</button>
+          <button onClick={signOut}>
+            {isLoading ? "Signing out..." : "Sign out"}
+          </button>
         </div>
       ) : (
         <div className="flex gap-4">

@@ -5,6 +5,7 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
   const editMode = mode === "edit" ? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
@@ -22,7 +23,7 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
       setTimeout(() => setError(null), 5000);
       return;
     }
-
+    setIsLoading(true);
     try {
       console.log(data);
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/todos`, {
@@ -39,11 +40,14 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const editData = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/todos/${task.id}`,
@@ -63,6 +67,8 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,9 +81,9 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white w-full max-w-md p-4 shadow-lg rounded-lg relative">
         <div className="flex items-center justify-between relative pb-6">
-          <h2>{mode} your task</h2>
+          <h2 className="text-2xl">{mode} your task</h2>
           <button
-            className="absolute top-2 right-2"
+            className=" top-2 right-2"
             onClick={() => setShowModal(false)}
           >
             Close
@@ -117,17 +123,21 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
             name="progress"
             value={data.progress}
             onChange={handleChange}
-            className="w-full"
+            className="w-full shadow-none"
           />
           <div className="flex justify-end gap-8 items-center">
             {error && <p className="highlight">{error}</p>}
-            <button
-              type="submit"
-              onClick={editMode ? editData : postData}
-              className="self-end"
-            >
-              {editMode ? "Edit" : "Add"} Task
-            </button>
+            {isLoading ? (
+              <h2>Loading...</h2>
+            ) : (
+              <button
+                type="submit"
+                onClick={editMode ? editData : postData}
+                className="self-end"
+              >
+                {editMode ? "Edit" : "Add"} Task
+              </button>
+            )}
           </div>
         </form>
       </div>

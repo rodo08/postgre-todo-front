@@ -6,12 +6,14 @@ import moment from "moment";
 
 const ListItem = ({ task, getData }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formatDate = (dateString) => {
     return moment(dateString).format("MMMM D YYYY HH:mm");
   };
 
   const deleteItem = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/todos/${task.id}`,
@@ -26,13 +28,15 @@ const ListItem = ({ task, getData }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <li className="list-item p-4">
       <div className="info-container flex items-center gap-4  pb-4">
         <TickIcon />
-        <h2 className="task-title">{task.title}</h2>
+        <h2 className="task-title text-xl">{task.title}</h2>
         <ProgressBar progress={task.progress} />
       </div>
       <p className="w-full opacity-90">{task.description}</p>
@@ -44,9 +48,13 @@ const ListItem = ({ task, getData }) => {
         <button className="edit" onClick={() => setShowModal(true)}>
           Edit
         </button>
-        <button className="delete" onClick={deleteItem}>
-          Delete
-        </button>
+        {isLoading ? (
+          <h2>Deleting...</h2>
+        ) : (
+          <button className="delete" onClick={deleteItem}>
+            Delete
+          </button>
+        )}
       </div>
       {showModal && (
         <Modal
