@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { HomeIllustration } from "../components/Icons";
@@ -11,12 +11,16 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log(cookies);
-
+  const formRef = useRef(null);
   const viewLogin = (status) => {
     setError(null);
     setIsLogIn(status);
+
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleSubmit = async (e, endpoint) => {
@@ -26,26 +30,39 @@ const Auth = () => {
       return;
     }
 
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/${endpoint}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/${endpoint}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data from server");
       }
-    );
-    const data = await response.json();
-    if (data.detail) {
-      setError(data.detail);
-    } else {
-      setCookie("Email", data.email);
-      setCookie("AuthToken", data.token);
 
-      navigate("/menu");
+      const data = await response.json();
 
-      window.location.reload();
+      if (data.detail) {
+        setError(data.detail);
+      } else {
+        setCookie("Email", data.email);
+        setCookie("AuthToken", data.token);
+
+        navigate("/menu");
+
+        window.location.reload();
+      }
+    } catch (error) {
+      setError(error.message || "An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +73,10 @@ const Auth = () => {
           <HomeIllustration />
         </div>
 
-        <div className="flex flex-col justify-center items-center ">
+        <div
+          className="flex flex-col justify-center items-center"
+          ref={formRef}
+        >
           <h2 className="pt-8 highlight">Welcome to Eclectica!</h2>
           <p className="text-center pb-8">
             Switch the buttons below either if you already have an account{" "}
@@ -111,7 +131,11 @@ const Auth = () => {
                 />
               )}
               <div className="flex justify-end">
-                <button className="">Submit</button>
+                {isLoading ? (
+                  <h2>Loading...</h2>
+                ) : (
+                  <button className="">Submit</button>
+                )}
               </div>
 
               {error && <p className="highlight">{error}</p>}

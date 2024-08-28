@@ -103,6 +103,13 @@ a:hover {
 }
 
 /* Estilos de encabezados */
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1;
+}
+
 h1 {
   color: var(--color-text);
   font-weight: bold;

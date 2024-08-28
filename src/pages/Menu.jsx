@@ -9,7 +9,7 @@ const Menu = () => {
     <>
       <div className="container flex flex-col">
         <h1>Menu</h1>
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <ul className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <li className="p-4">
             <MenuItem
               itemImage={<TaskIllustration />}

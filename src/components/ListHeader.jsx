@@ -16,14 +16,14 @@ const ListHeader = ({ listName, getData }) => {
     <div className="container">
       <div className=" flex flex-col gap-4">
         <h2>Welcome to your task manager</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
           <p>
             a place where your dreams take shape and goals become reality. Every
             task you complete brings you one step closer to your aspirations.
             Harness your focus, ignite your passion, and conquer your to-do list
             with confidence.
           </p>
-          <div className="flex gap-4">
+          <div className="flex justify-end gap-4">
             <button className="" onClick={() => setShowModal(true)}>
               Add task
             </button>
