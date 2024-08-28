@@ -97,12 +97,15 @@ const Wall = () => {
   return (
     <main className="flex flex-col md:flex-row gap-10">
       <div className="w-full flex-1 flex p-4 md:w-2/3">
-        <aside className="">
+        <aside className="w-full">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 pb-10">
-            <p className="text-xl ">
-              Be creative and share your thoughts with the community
-            </p>
-            <button onClick={goBack}>Go back</button>
+            <div className="flex flex-col">
+              <h2> Wall messages</h2>
+              <p>Be creative and share your thoughts with the community</p>
+            </div>
+            <button onClick={goBack} className="self-end">
+              Go back
+            </button>
           </div>
 
           <form
@@ -110,7 +113,7 @@ const Wall = () => {
             className="w-full flex justify-between items-center pb-8 "
           >
             {/* <div className="w-full flex flex-col gap-4 pt-8"> */}
-            <div className="flex w-full items-end">
+            <div className="w-full flex items-center">
               <textarea
                 name="message"
                 className="flex-1 mr-2 resize-none"
@@ -120,9 +123,14 @@ const Wall = () => {
                 value={data.message}
                 onChange={handleChange}
               />
-              <button className="flex-shrink-0" type="submit">
-                {isLoading ? "Loading..." : "Send"}
-              </button>
+              <div className="flex flex-col items-center gap-4">
+                <button className="flex-shrink-0" type="submit">
+                  {isLoading ? "Loading..." : "Send"}
+                </button>
+                <button className="flex-shrink-0" onClick={getData}>
+                  {isLoading ? "Loading..." : "Refresh"}
+                </button>
+              </div>
             </div>
           </form>
 
