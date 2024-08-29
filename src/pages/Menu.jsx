@@ -1,9 +1,6 @@
 import { TaskIllustration, WallIllustration } from "../components/Icons.jsx";
 import MenuItem from "../components/MenuItem.jsx";
 
-import Tasks from "./Tasks";
-import Wall from "./Wall";
-
 const Menu = () => {
   return (
     <>
@@ -26,9 +23,6 @@ const Menu = () => {
               route={"wall"}
             />
           </li>
-
-          {/* <Tasks /> */}
-          {/* <Wall /> */}
         </ul>
       </div>
     </>

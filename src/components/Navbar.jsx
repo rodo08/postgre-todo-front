@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Eclectica } from "./Icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -27,12 +28,14 @@ const Navbar = () => {
 
   return (
     <div className="container mx-auto flex justify-between items-center gap-8 p-4">
-      <div className="flex items-center gap-1">
-        <Eclectica />
-        <span className="text-3xl font-bold highlight md:flex hidden">
-          eclectica
-        </span>
-      </div>
+      <Link to={authToken ? "/menu" : "/"}>
+        <div className="w-full flex items-center gap-1">
+          <Eclectica />
+          <span className="text-3xl font-bold highlight md:flex hidden">
+            eclectica
+          </span>
+        </div>
+      </Link>
 
       {authToken ? (
         <div className="flex gap-4 items-center">

@@ -32,16 +32,22 @@ const ListItem = ({ task, getData }) => {
       setIsLoading(false);
     }
   };
+
+  console.log(task.progress);
   return (
     <li className="list-item p-4">
-      <div className="info-container flex items-center gap-4  pb-4">
-        <TickIcon />
-        <h2 className="task-title text-xl">{task.title}</h2>
-        <ProgressBar progress={task.progress} />
+      <div className="info-container flex flex-col gap-4  pb-4">
+        <div className="flex items-center gap-4">
+          <TickIcon />
+          <h2 className="task-title text-xl">{task.title}</h2>
+        </div>
       </div>
-      <p className="w-full opacity-90">{task.description}</p>
+      <div className="flex flex-col gap-8">
+        <ProgressBar progress={task.progress} />
+        <p className="w-full opacity-90">{task.description}</p>
+      </div>
       <p className="date py-4 from-neutral-100 text-sm opacity-50">
-        added {formatDate(task.date)}
+        {formatDate(task.date)}
       </p>
 
       <div className="button-container flex gap-4">

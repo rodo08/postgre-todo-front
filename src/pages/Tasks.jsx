@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import ProgressBar from "../components/ProgressBar";
 import ListHeader from "../components/ListHeader";
 import ListItem from "../components/ListItem";
-import { useCookies } from "react-cookie";
 
 const Tasks = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
