@@ -78,3 +78,24 @@ export function WallIllustration() {
     </svg>
   );
 }
+
+export function Back(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5rem"
+      height="1.5rem"
+      viewBox="0 0 512 512"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="black"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={48}
+        d="M244 400L100 256l144-144M120 256h292"
+      ></path>
+    </svg>
+  );
+}

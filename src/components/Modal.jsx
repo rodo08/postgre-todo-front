@@ -94,7 +94,7 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
           <input
             required
             maxLength={30}
-            placeholder="Task title"
+            placeholder="Task title (30 characters max)"
             name="title"
             value={data.title}
             onChange={handleChange}

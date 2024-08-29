@@ -3,6 +3,8 @@ import { useCookies } from "react-cookie";
 import CardPost from "../components/CardPost";
 import Activity from "../components/Activity";
 import { useNavigate } from "react-router-dom";
+import { Back } from "../components/Icons";
+import moment from "moment";
 
 const Wall = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -14,6 +16,9 @@ const Wall = () => {
   const [newMessages, setNewMessages] = useState([]);
   const userEmail = cookies.Email;
   const navigate = useNavigate();
+  const formatDate = (dateString) => {
+    return moment(dateString).format("MMMM D YYYY HH:mm");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,16 +101,19 @@ const Wall = () => {
 
   return (
     <main className="flex flex-col md:flex-row gap-10">
-      <div className="w-full flex-1 flex p-4 md:w-2/3">
+      <div className="w-full flex-1 flex md:w-2/3">
         <aside className="w-full">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 pb-10">
             <div className="flex flex-col">
-              <h2> Wall messages</h2>
+              <div className="flex gap-4 items-center pb-4">
+                <Back
+                  className="w-fit-content bg-[#ba94ff] rounded cursor-pointer"
+                  onClick={goBack}
+                />
+                <h2 className="pb-0"> Wall messages</h2>
+              </div>
               <p>Be creative and share your thoughts with the community</p>
             </div>
-            <button onClick={goBack} className="self-end">
-              Go back
-            </button>
           </div>
 
           <form
@@ -138,16 +146,16 @@ const Wall = () => {
             <ul className="columns-1 gap-2 lg:gap-2 sm:columns-2 lg:columns-3 xl:columns-4 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
               {newMessages.length > 0 ? (
                 newMessages.map((message) => (
-                  <>
-                    <li className=" bg-[#1f1d2b] overflow-hidden p-2 mb-2 shadow-none">
-                      <CardPost
-                        key={message.id}
-                        userEmail={message.user_email}
-                        paragraph={message.message}
-                        date={message.date}
-                      />
-                    </li>
-                  </>
+                  <li
+                    key={message.id}
+                    className="bg-[#1f1d2b] overflow-hidden p-2 mb-2 shadow-none"
+                  >
+                    <CardPost
+                      userEmail={message.user_email}
+                      paragraph={message.message}
+                      date={formatDate(message.date)}
+                    />
+                  </li>
                 ))
               ) : (
                 <p>No messages 😢💔</p>
