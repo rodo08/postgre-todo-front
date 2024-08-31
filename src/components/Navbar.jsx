@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [cookies, removeCookie] = useCookies(null);
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;

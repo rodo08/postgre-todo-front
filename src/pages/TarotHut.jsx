@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import MarkdownIt from "markdown-it";
 import tarotCards from "../cards";
 
 const TarotHut = () => {
@@ -6,6 +7,7 @@ const TarotHut = () => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [isloading, setIsLoading] = useState(false);
   const [selectedCardKeywords, setSelectedCardKeywords] = useState([]);
+  const md = new MarkdownIt();
 
   ////gemini
   const [value, setValue] = useState("");
@@ -29,15 +31,36 @@ const TarotHut = () => {
       const options = {
         method: "POST",
         body: JSON.stringify({
-          message: `Act as tarot reader: according to ${cardsToRead}, ${value}`,
+          message: `Act as tarot reader (Start with a brief introduction that connects with the user, mentioning that this reading is specially done for them and each card will reveal something important about their current situation. Ensure the total text for each card does not exceed 140 characters.
+
+Card 1: The Past Card
+
+Description: Briefly explain what this card represents and its influence on the past.
+Interpretation: Concisely describe how this past aspect affects the current situation.
+Advice: Provide a short piece of advice on understanding or using this information.
+Card 2: The Present Card
+
+Description: Describe what this card symbolizes and how it reflects the present situation.
+Interpretation: Explain the impact of this card on the user's current life.
+Advice: Offer practical advice on addressing challenges or seizing opportunities from this card.
+Card 3: The Future Card
+
+Description: Explain what this card represents about the future.
+Interpretation: Describe how this card might influence the future and possible outcomes.
+Advice: Provide advice on preparing for or positively influencing the future.
+Motivational Closing: End with a positive and empowering message encouraging the user to reflect on the reading and act on the advice.): according to ${cardsToRead}, ${value}. `,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const response = await fetch("http://localhost:8000/gemini", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/gemini`,
+        options
+      );
       const data = await response.text();
-      setAnswer(data);
+      const formattedAnswer = md.render(data);
+      setAnswer(formattedAnswer);
       setValue("");
     } catch (error) {
       console.log(error);
@@ -105,25 +128,29 @@ const TarotHut = () => {
               <h1>Tarot</h1>
             </li>
             <li className="shadow-none">
-              <div className="w-full flex justify-between items-center gap-4">
-                <label htmlFor="" className="highlight font-bold text-2xl">
-                  Make your query
-                </label>
-                <input
-                  type="text"
-                  placeholder="Your question here"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-                <button className="w-fit" onClick={shuffleCards}>
-                  Get your cards
-                </button>
-              </div>
+              {selectedCards.length > 0 ? (
+                <h2 className="highlight">Your cards have been revealed...</h2>
+              ) : (
+                <div className="w-full flex justify-between items-center gap-4">
+                  <label htmlFor="" className="highlight font-bold text-2xl">
+                    Make your query
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your question here"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                  <button className="w-fit" onClick={shuffleCards}>
+                    Get your cards
+                  </button>
+                </div>
+              )}
             </li>
             <li className="shadow-none">
               <div className="flex justify-center py-4 ">
                 {!selectedCards.length > 0 ? (
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                  <ul className="grid grid-cols-3 gap-4 mb-4">
                     <li>
                       <img src={tarotCards.blank} alt="" />
                     </li>
@@ -135,7 +162,7 @@ const TarotHut = () => {
                     </li>
                   </ul>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                  <div className="grid grid-cols-3 gap-4 mb-4">
                     {selectedCards.map((card, i) => (
                       <div key={i}>
                         <img
@@ -162,31 +189,16 @@ const TarotHut = () => {
               Get your reading
             </button>
             <section className="max-w-2xl flex flex-col gap-4 pt-8">
-              {/* <button
-              className="surprise w-fit"
-              onClick={surprise}
-              disabled={!chatHistory}
-            >
-              Surprise me
-            </button> */}
-
-              {/* <div className="input-container flex gap-4">
-              <input
-                value={value}
-                type="text"
-                placeholder="when is x-mas?"
-                onChange={(e) => setValue(e.target.value)}
-              />
-              {!error && <button onClick={getResponse}>Ask</button>}
-              {error && <button onClick={clear}>Clear</button>}
-            </div> */}
               {error && <p>{error}</p>}
               <div className="w-full">
                 <div>
                   {isloading ? (
                     <h2>Loading...</h2>
                   ) : (
-                    <p className="answer">{answer}</p>
+                    <div
+                      className="answer"
+                      dangerouslySetInnerHTML={{ __html: answer }}
+                    />
                   )}
                 </div>
               </div>
