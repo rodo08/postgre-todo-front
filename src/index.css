@@ -144,3 +144,18 @@ p {
 .inner-bar {
   height: 14px;
 }
+
+/*  gemini */
+.search-result {
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+.surprise {
+  background-color: #ececf1;
+  color: #000;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  margin: 0 0 2px 5px;
+}

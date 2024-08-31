@@ -5,6 +5,7 @@ import Auth from "../components/Auth";
 import Menu from "../pages/Menu";
 import Wall from "../pages/Wall";
 import Tasks from "../pages/Tasks";
+import TarotHut from "../pages/TarotHut";
 
 const routes = [
   {
@@ -31,6 +32,10 @@ const routes = [
           {
             path: "wall",
             element: <Wall />,
+          },
+          {
+            path: "tarot-hut",
+            element: <TarotHut />,
           },
         ],
       },

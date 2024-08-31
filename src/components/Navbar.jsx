@@ -17,7 +17,7 @@ const Navbar = () => {
       console.log("Sign out");
       removeCookie("Email");
       removeCookie("AuthToken");
-      navigate("");
+      navigate("/");
       window.location.reload();
     } catch {
       console.log("Failed to sign out");

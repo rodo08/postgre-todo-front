@@ -1,4 +1,8 @@
-import { TaskIllustration, WallIllustration } from "../components/Icons.jsx";
+import {
+  TaskIllustration,
+  WallIllustration,
+  TarotIllustration,
+} from "../components/Icons.jsx";
 import MenuItem from "../components/MenuItem.jsx";
 
 const Menu = () => {
@@ -21,6 +25,14 @@ const Menu = () => {
               title="Messages Wall"
               description="Share your thoughts with the community"
               route={"wall"}
+            />
+          </li>
+          <li className="p-4">
+            <MenuItem
+              itemImage={<TarotIllustration />}
+              title="Tarot hut"
+              description="Get a tarot reading"
+              route={"tarot-hut"}
             />
           </li>
         </ul>
