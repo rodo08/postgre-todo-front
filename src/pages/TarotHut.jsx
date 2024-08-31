@@ -37,24 +37,21 @@ const TarotHut = () => {
       const options = {
         method: "POST",
         body: JSON.stringify({
-          message: `Act as tarot reader (Start with a brief introduction that connects with the user, mentioning that this reading is specially done for them and each card will reveal something important about their current situation. Ensure the total text for each card does not exceed 140 characters.
+          message: `Act as a tarot fortune teller and answer (Start with a brief introduction that connects with the user, mentioning that this reading is specially done for them and that each card will reveal something important about their current situation. Ensure the total text for each card does not exceed 140 characters.)
 
-Card 1: The Past Card
+Card 1: The Past
 
-Description: Briefly explain what this card represents and its influence on the past.
-Interpretation: Concisely describe how this past aspect affects the current situation.
-Advice: Provide a short piece of advice on understanding or using this information.
-Card 2: The Present Card
+Description: Briefly explain how this card influences the user’s past. Interpretation: Connect how this past aspect specifically affects their current situation. Advice: Provide a short piece of advice on how to use this information to move forward.
 
-Description: Describe what this card symbolizes and how it reflects the present situation.
-Interpretation: Explain the impact of this card on the user's current life.
-Advice: Offer practical advice on addressing challenges or seizing opportunities from this card.
-Card 3: The Future Card
+Card 2: The Present
 
-Description: Explain what this card represents about the future.
-Interpretation: Describe how this card might influence the future and possible outcomes.
-Advice: Provide advice on preparing for or positively influencing the future.
-Motivational Closing: End with a positive and empowering message encouraging the user to reflect on the reading and act on the advice.): according to ${cardsToRead}, ${value}. `,
+Description: Describe how this card reflects the user’s current situation. Interpretation: Explain how this current moment impacts their life concretely. Advice: Offer practical advice on how to address challenges or seize opportunities in the present.
+
+Card 3: The Future
+
+Description: Explain what this card suggests about the user's future. Interpretation: Describe how this future aspect might influence upcoming events and possible outcomes. Advice: Provide a recommendation on how to prepare for or positively influence the future.
+
+Reading Summary: End with a positive and encouraging message, and make an interpretation using the three provided cards and the query from the user): according to ${cardsToRead}, ${value}? `,
         }),
         headers: {
           "Content-Type": "application/json",
