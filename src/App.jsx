@@ -11,6 +11,7 @@ const App = () => {
   const [tasks, setTasks] = useState(null);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
+  console.log(!authToken ? true : false);
 
   return (
     <div className="h-screen flex flex-col">
@@ -18,8 +19,8 @@ const App = () => {
       <Navbar />
       <div className="container mx-auto flex items-center">
         <div className="w-full flex justify-center p-4">
-          {!authToken ? <Auth /> : <Outlet />}
-          {/* {authToken && <Profile />} */}
+          {/* {!authToken ? <Auth /> : <Outlet />} */}
+          <Outlet />
         </div>
       </div>
       <div className="mt-auto">

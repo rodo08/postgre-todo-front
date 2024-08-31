@@ -1,42 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Outlet } from "react-router-dom";
 import Auth from "../components/Auth";
 import Menu from "../pages/Menu";
 import Wall from "../pages/Wall";
 import Tasks from "../pages/Tasks";
 import TarotHut from "../pages/TarotHut";
+import LayoutMenu, { ProtectedRoutes } from "../Layouts/LayoutMenu";
 
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: (
+      <ProtectedRoutes>
+        <App />
+      </ProtectedRoutes>
+    ),
     children: [
       {
-        index: "/",
+        path: "auth",
         element: <Auth />,
       },
+
       {
         path: "menu",
-        element: <Outlet />,
+        element: <LayoutMenu />,
         children: [
-          {
-            path: "",
-            element: <Menu />,
-          },
-
-          {
-            path: "tasks",
-            element: <Tasks />,
-          },
-          {
-            path: "wall",
-            element: <Wall />,
-          },
-          {
-            path: "tarot-hut",
-            element: <TarotHut />,
-          },
+          { path: "", element: <Menu /> },
+          { path: "wall", element: <Wall /> },
+          { path: "tasks", element: <Tasks /> },
+          { path: "tarot-hut", element: <TarotHut /> },
         ],
       },
     ],
