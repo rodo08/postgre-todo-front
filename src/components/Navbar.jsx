@@ -5,20 +5,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [cookies, removeCookie] = useCookies(null);
+  const [cookies, setCookies, removeCookie] = useCookies([
+    "Email",
+    "AuthToken",
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
   const navigate = useNavigate();
-
+  console.log(cookies);
   const signOut = () => {
     setIsLoading(true);
     try {
       console.log("Sign out");
       removeCookie("Email");
       removeCookie("AuthToken");
-      navigate("/");
-      window.location.reload();
+      navigate("/auth");
     } catch {
       console.log("Failed to sign out");
     } finally {
