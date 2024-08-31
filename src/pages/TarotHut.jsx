@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Back } from "../components/Icons";
+import { useNavigate } from "react-router-dom";
 import MarkdownIt from "markdown-it";
 import tarotCards from "../cards";
 
@@ -8,6 +10,10 @@ const TarotHut = () => {
   const [isloading, setIsLoading] = useState(false);
   const [selectedCardKeywords, setSelectedCardKeywords] = useState([]);
   const md = new MarkdownIt();
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate("/menu");
+  };
 
   ////gemini
   const [value, setValue] = useState("");
@@ -124,14 +130,20 @@ Motivational Closing: End with a positive and empowering message encouraging the
       <section className="w-fit flex flex-col md:flex-row gap-10">
         <div className="flex flex-col">
           <ul className="max-w-2xl">
-            <li className="shadow-none">
-              <h1>Tarot</h1>
+            <li className="flex shadow-none">
+              <div className="flex gap-4 items-center pb-4">
+                <Back
+                  className="w-fit-content bg-[#ba94ff] rounded cursor-pointer"
+                  onClick={goBack}
+                />
+                <h2>Tarot</h2>
+              </div>
             </li>
             <li className="shadow-none">
               {selectedCards.length > 0 ? (
                 <h2 className="highlight">Your cards have been revealed...</h2>
               ) : (
-                <div className="w-full flex justify-between items-center gap-4">
+                <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
                   <label htmlFor="" className="highlight font-bold text-2xl">
                     Make your query
                   </label>
@@ -140,8 +152,9 @@ Motivational Closing: End with a positive and empowering message encouraging the
                     placeholder="Your question here"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
+                    className="w-full md:w-fit"
                   />
-                  <button className="w-fit" onClick={shuffleCards}>
+                  <button className="w-full md:w-fit" onClick={shuffleCards}>
                     Get your cards
                   </button>
                 </div>
