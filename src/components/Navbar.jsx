@@ -5,7 +5,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [cookies, removeCookie] = useCookies(null);
+  const [cookies, setCookies, removeCookie] = useCookies([
+    "Email",
+    "AuthToken",
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
@@ -41,7 +44,7 @@ const Navbar = () => {
         <div className="flex gap-4 items-center">
           <p
             style={{
-              width: " 180px",
+              width: " 100px",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
