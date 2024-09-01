@@ -41,15 +41,14 @@ const Navbar = () => {
       </Link>
 
       {authToken ? (
-        <div className="flex gap-4 items-center">
+        <div className="w-full flex gap-4 justify-end items-center">
           <p
             style={{
-              width: " 100px",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
             }}
-            className="truncate"
+            className="w-[180px] md:w-auto truncate"
           >
             Welcome <b>{userEmail}</b>
           </p>

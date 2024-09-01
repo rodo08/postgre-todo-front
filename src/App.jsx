@@ -18,7 +18,6 @@ const App = () => {
       <Navbar />
       <div className="container mx-auto flex items-center">
         <div className="w-full flex justify-center p-4">
-          {/* {!authToken ? <Auth /> : <Outlet />} */}
           <Outlet />
         </div>
       </div>
