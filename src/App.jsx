@@ -8,7 +8,6 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
-  const [tasks, setTasks] = useState(null);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
   console.log(!authToken ? true : false);
