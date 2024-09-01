@@ -5,22 +5,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [cookies, setCookies, removeCookie] = useCookies([
-    "Email",
-    "AuthToken",
-  ]);
+  const [cookies, removeCookie] = useCookies(null);
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
   const navigate = useNavigate();
-  console.log(cookies);
+
   const signOut = () => {
     setIsLoading(true);
     try {
       console.log("Sign out");
       removeCookie("Email");
       removeCookie("AuthToken");
-      navigate("/auth");
+      navigate("/");
+      window.location.reload();
     } catch {
       console.log("Failed to sign out");
     } finally {
@@ -41,7 +39,15 @@ const Navbar = () => {
 
       {authToken ? (
         <div className="flex gap-4 items-center">
-          <p>
+          <p
+            style={{
+              width: " 180px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+            className="truncate"
+          >
             Welcome <b>{userEmail}</b>
           </p>
           <button onClick={signOut}>

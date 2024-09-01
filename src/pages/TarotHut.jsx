@@ -23,6 +23,10 @@ const TarotHut = () => {
   const clear = () => {
     setValue("");
     setError("");
+    setAnswer("");
+    setRandomNumbers([]);
+    setSelectedCards([]);
+    setSelectedCardKeywords([]);
   };
 
   const getResponse = async () => {
@@ -37,21 +41,24 @@ const TarotHut = () => {
       const options = {
         method: "POST",
         body: JSON.stringify({
-          message: `Act as a tarot fortune teller and answer (Start with a brief introduction that connects with the user, mentioning that this reading is specially done for them and that each card will reveal something important about their current situation. Ensure the total text for each card does not exceed 140 characters.)
+          message: `Act as a tarot fortune teller and provide a personalized reading (Begin with a short warm introduction, emphasizing that this reading is uniquely tailored for the user. Highlight that each card is chosen to shed light on their specific question, offering insights into their past, present, and future. Each card interpretation should directly relate to their query, with a text limit of 100 characters per card.)
 
 Card 1: The Past
 
-Description: Briefly explain how this card influences the user’s past. Interpretation: Connect how this past aspect specifically affects their current situation. Advice: Provide a short piece of advice on how to use this information to move forward.
-
+Description: Succinctly illustrate how this card reflects a significant event or influence in the user’s past related to their query.
+Interpretation: Explicitly connect how this past experience impacts their current situation.
+Advice: Offer a concise piece of advice on leveraging this past insight for positive change.
 Card 2: The Present
 
-Description: Describe how this card reflects the user’s current situation. Interpretation: Explain how this current moment impacts their life concretely. Advice: Offer practical advice on how to address challenges or seize opportunities in the present.
-
+Description: Explain how this card mirrors the user’s current circumstances connected to their query.
+Interpretation: Clarify the direct effect this current state has on their life right now.
+Advice: Provide actionable advice on overcoming current challenges or maximizing present opportunities.
 Card 3: The Future
 
-Description: Explain what this card suggests about the user's future. Interpretation: Describe how this future aspect might influence upcoming events and possible outcomes. Advice: Provide a recommendation on how to prepare for or positively influence the future.
-
-Reading Summary: End with a positive and encouraging message, and make an interpretation using the three provided cards and the query from the user): according to ${cardsToRead}, ${value}? `,
+Description: Indicate what this card foretells about the user’s future in relation to their query.
+Interpretation: Elaborate on how this future aspect could shape upcoming events or potential outcomes.
+Advice: Suggest a strategy for navigating or influencing this future scenario in their favor.
+Reading Summary: (Conclude by weaving together the insights from all three cards, directly answering the user’s question. Sum up how their past, present, and future align according to the cards, and provide a clear, cohesive response.): according to ${cardsToRead}, ${value}?`,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -189,31 +196,36 @@ Reading Summary: End with a positive and encouraging message, and make an interp
               </div>
             </li>
           </ul>
-          <aside>
-            <h3 className="highlight font-bold text-2xl">Card description</h3>
-            <p className=" pb-4">
-              Click a card to see its keywords:{" "}
-              <span className="highlight">{selectedCardKeywords}</span>
-            </p>
-            <button className="w-fit" onClick={getResponse}>
-              Get your reading
-            </button>
-            <section className="max-w-2xl flex flex-col gap-4 pt-8">
-              {error && <p>{error}</p>}
-              <div className="w-full">
-                <div>
-                  {isloading ? (
-                    <h2>Loading...</h2>
-                  ) : (
-                    <div
-                      className="answer"
-                      dangerouslySetInnerHTML={{ __html: answer }}
-                    />
-                  )}
+          {selectedCards.length > 0 ? (
+            <aside>
+              <h3 className="highlight font-bold text-2xl">Card description</h3>
+              <p className=" pb-4">
+                Click a card to see its keywords:{" "}
+                <span className="highlight">{selectedCardKeywords}</span>
+              </p>
+              <button className="w-fit" onClick={getResponse}>
+                Get your reading
+              </button>
+              <section className="max-w-2xl flex flex-col gap-4 pt-8">
+                {error && <p>{error}</p>}
+                <div className="w-full">
+                  <div>
+                    {isloading ? (
+                      <h2>Loading...</h2>
+                    ) : (
+                      <div
+                        className="answer"
+                        dangerouslySetInnerHTML={{ __html: answer }}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
-            </section>
-          </aside>
+              </section>
+              <button className="w-fit mt-8 " onClick={clear}>
+                Get another read
+              </button>
+            </aside>
+          ) : null}
         </div>
       </section>
     </>
