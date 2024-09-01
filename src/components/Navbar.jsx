@@ -48,7 +48,7 @@ const Navbar = () => {
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
             }}
-            className="w-[180px] md:w-auto truncate"
+            className="w-[150px] md:w-auto truncate"
           >
             Welcome <b>{userEmail}</b>
           </p>
