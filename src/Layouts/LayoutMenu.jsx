@@ -1,4 +1,4 @@
-import { Outlet, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 
@@ -23,7 +23,6 @@ export const ProtectedRoutes = ({ children }) => {
       return navigate("/menu", { replace: true });
     }
 
-    console.log(location);
     if (!cookies.AuthToken) {
       return navigate("/auth", { replace: true });
     }

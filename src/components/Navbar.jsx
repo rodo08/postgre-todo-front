@@ -21,7 +21,7 @@ const Navbar = () => {
       removeCookie("Email");
       removeCookie("AuthToken");
       navigate("/");
-      window.location.reload();
+      //window.location.reload();
     } catch {
       console.log("Failed to sign out");
     } finally {
