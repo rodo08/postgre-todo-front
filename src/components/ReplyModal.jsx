@@ -67,17 +67,17 @@ const ReplyModal = ({ userEmail, wallMessage, setReplyModal }) => {
 
   return (
     <section className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-70 backdrop-blur-sm z-50">
-      <div className="w-full h-[500px] md:w-[450px] overflow-y-auto bg-white border-[2px] border-[#ba94ff] rounded-lg p-6 z-60 mx-4">
+      <div className="relative w-full flex flex-col h-[500px] md:w-[450px] overflow-y-auto bg-white border-[2px] border-[#ba94ff] rounded-lg p-6 z-60 mx-4">
+        <button
+          className="self-end shadow-none fixed"
+          onClick={() => setReplyModal(false)}
+        >
+          Close
+        </button>
         <div className="w-full flex justify-between pb-8">
           <h3 className="highlight flex text-xl font-bold text-[#ba94ff] items-center">
             {replies.length} replies
           </h3>
-          <button
-            className="fixed right-[520px] shadow-none"
-            onClick={() => setReplyModal(false)}
-          >
-            Close
-          </button>
         </div>
 
         <p>
