@@ -41,24 +41,9 @@ const TarotHut = () => {
       const options = {
         method: "POST",
         body: JSON.stringify({
-          message: `Act as a tarot fortune teller and provide a personalized reading (Begin with a short warm introduction, emphasizing that this reading is uniquely tailored for the user. Each card interpretation should directly relate to their query, with a text limit of 100 characters per card.)
+          message: `Act as a tarot reader and provide a personalized 3 cards reading: Cardrd 1: The Past, Card 2: The Present and Card 3: The Future. If the query meaning is not a clear question or sentence, respond with "The cards shows me nothing about this..."
 
-Card 1: The Past
-
-Description: Succinctly illustrate how this card reflects a significant event or influence in the user’s past related to their query.
-Interpretation: Explicitly connect how this past experience impacts their current situation.
-Advice: Offer a concise piece of advice on leveraging this past insight for positive change, should directly relate to their query.
-Card 2: The Present
-
-Description: Explain how this card mirrors the user’s current circumstances connected to their query.
-Interpretation: Clarify the direct effect this current state has on their life right now.
-Advice: Provide actionable advice on overcoming current challenges or maximizing present opportunitie, should directly relate to their query
-Card 3: The Future
-
-Description: Indicate what this card foretells about the user’s future in relation to their query.
-Interpretation: Elaborate on how this future aspect could shape upcoming events or potential outcomes.
-Advice: Suggest a strategy for navigating or influencing this future scenario in their favor, should directly relate to their query
-Reading Summary: (Conclude by weaving together the insights from all three cards, directly answering the user’s question. Sum up how their past, present, and future align according to the cards, and provide a clear, cohesive response.): according to ${cardsToRead}, ${value}?`,
+Reading Summary: Conclude by weaving together the insights from all three cards, directly answering the user’s question. Sum up how their past, present, and future align according to the cards, and provide a clear, cohesive response either good or bad possible outcome): according to ${cardsToRead}, ${value}?`,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -197,15 +182,17 @@ Reading Summary: (Conclude by weaving together the insights from all three cards
           {selectedCards.length > 0 ? (
             <aside>
               <p className="pb-8">
-                Click a card to see its keywords:{" "}
+                <strong>Click a card to see its keywords: </strong>
                 <span className="highlight">{selectedCardKeywords}</span>
               </p>
-              <button
-                className="w-full background-[#ba94ff]"
-                onClick={getResponse}
-              >
-                Get your reading
-              </button>
+              {!answer && (
+                <button
+                  className="w-full background-[#ba94ff]"
+                  onClick={getResponse}
+                >
+                  Get your reading
+                </button>
+              )}
               <section className="max-w-2xl flex flex-col gap-4 pt-8">
                 {error && <p>{error}</p>}
                 <div className="w-full">
@@ -221,8 +208,9 @@ Reading Summary: (Conclude by weaving together the insights from all three cards
                   </div>
                 </div>
               </section>
-              <button className="w-fit mt-8 " onClick={clear}>
-                Get another read
+
+              <button className="w-full mt-8 " onClick={clear}>
+                Reset & get new cards
               </button>
             </aside>
           ) : null}

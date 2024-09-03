@@ -176,7 +176,7 @@ const Wall = () => {
               />
               <div className="flex flex-col items-center gap-4">
                 <button className="flex-shrink-0" type="submit">
-                  {isLoading ? "Loading..." : "Send"}
+                  Send
                 </button>
                 <button className="flex-shrink-0" onClick={getData}>
                   {isLoading ? "Loading..." : "Refresh"}
