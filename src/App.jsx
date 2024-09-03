@@ -10,7 +10,6 @@ const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
-  console.log(!authToken ? true : false);
 
   return (
     <div className="h-screen flex flex-col">

@@ -13,8 +13,6 @@ const Auth = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  // const authToken = cookies.AuthToken
-  // console.log(authToken);
 
   const formRef = useRef(null);
   const viewLogin = (status) => {
